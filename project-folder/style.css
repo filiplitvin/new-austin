@@ -1,0 +1,32 @@
+body {
+  font-family: "Courier New", monospace;
+  text-align: center;
+  background-color: #e6d6a9;
+}
+
+#game-area {
+  width: 1250px;
+  height: 550px;
+  margin: 20px auto;
+  position: relative;
+  border: 3px solid #543d2f;
+  background-image: url("https://i.imgur.com/wjzD7Yt.jpg"); /* фон Нью Остіна */
+  background-size: cover;
+  cursor: crosshair;
+  background-image: url(../src/img/bg-new-austin.avif);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#target {
+  position: absolute; /* Це обов'язково! */
+  width: 100px;
+  height: 150px;
+  background-image: url(../src/img/bohhh.webp);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.appear {
+  opacity: 1;
+  transform: scale(1.1);
+}
