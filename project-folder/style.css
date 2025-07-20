@@ -24,8 +24,8 @@ body {
   fill: white;
 }
 #game-area {
-  width: 1250px;
-  height: 475px;
+  min-width: 1250px;
+  min-height: 475px;
   margin: 20px auto;
   position: relative;
   border: 3px solid #000000;
@@ -51,11 +51,22 @@ body {
   transform: scale(1.1);
 }
 .score {
-  color: white;
+  color: rgb(0, 0, 0);
+}
+.clock {
+  position: absolute;
+  left: 45%;
+  bottom: 45px;
+  fill: white;
+  width: 24px;
+  height: 24px;
 }
 .time {
-  color: white;
+  color: black;
+  /* background-image: url(../src/img/alarm.svg);
+  background-size: 18px;
+  background-repeat: no-repeat; */
 }
 .policy {
-  color: white;
+  color: black;
 }
