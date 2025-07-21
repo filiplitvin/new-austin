@@ -3,7 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <title>New Austin: Невидимий Снайпер</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -12,8 +18,21 @@
     />
   </head>
   <body>
+    <div id="main-menu" class="menu">
+      <h2 class="menu-title">Home menu</h2>
+      <button id="start-btn" class="menu-button">Start</button>
+      <div
+        id="howto-text"
+        style="display: none; color: white; margin-top: 20px"
+      >
+        <p>
+          Цільтеся та стріляйте по мішенях. Кожне попадання — 1 очко. У вас є 30
+          секунд!
+        </p>
+      </div>
+    </div>
+
     <div class="box">
-      <img class="img" src="../src/img/sniper.jpeg" alt="sniper" />
       <h1 class="title">RED DEAD REDAMTION THE NEW AUSTIN SNIPER</h1>
       <svg
         class="vector"
@@ -34,28 +53,66 @@
         <!-- <img id="character" src="bohhh.webp" alt="персонаж" width="300" /> -->
       </div>
     </div>
-    <p class="score">Очки: <span id="score">0</span></p>
-    <svg
-      class="clock"
-      version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
-      width="512"
-      height="512"
-      viewBox="0 0 512 512"
-    >
-      <g id="icomoon-ignore"></g>
-      <path
-        fill="#000"
-        d="M256 64c-123.712 0-224 100.288-224 224s100.288 224 224 224 224-100.288 224-224-100.288-224-224-224zM256 468c-99.412 0-180-80.589-180-180 0-99.412 80.588-180 180-180 99.411 0 180 80.588 180 180 0 99.411-80.589 180-180 180zM467.392 143.587c8.021-14.026 12.608-30.271 12.608-47.587 0-53.020-42.98-96-96-96-30.909 0-58.401 14.611-75.96 37.298 65.942 13.618 122.603 52.599 159.352 106.289v0zM203.96 37.298c-17.558-22.687-45.051-37.298-75.96-37.298-53.020 0-96 42.98-96 96 0 17.316 4.587 33.561 12.608 47.587 36.75-53.69 93.411-92.671 159.352-106.289z"
-      ></path>
-      <path fill="#000" d="M256 288v-128h-32v160h128v-32z"></path>
-    </svg>
-    <p class="time">Час: <span id="timer">00:30</span> с</p>
-    <script src="game.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <audio id="shot-sound" src="gunshot.mp3" preload="auto"></audio>
-    <p class="text">
+    <p class="score">Point's: <span id="score">0</span></p>
+    <p class="time">Time: <span id="timer">00:30</span> с</p>
+    <p class="policy">
       Вороги це члени банди тому що це відбувається під час 1899 року
     </p>
+    <div class="creators">
+      <img
+        class="creators-photo"
+        src="../src/img/creators.PNG"
+        alt="creators"
+      />
+    </div>
+    <div class="exit-button-box">
+      <button id="exit-game-btn" class="exit-button">Exit to menu</button>
+    </div>
+    <script src="./game.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      const menu = document.getElementById("main-menu");
+      const startBtn = document.getElementById("start-btn");
+      const howtoBtn = document.getElementById("howto-btn");
+      const exitBtn = document.getElementById("exit-btn");
+      const howtoText = document.getElementById("howto-text");
+      const gameElements = document.querySelectorAll(
+        ".box, #game-area, .score, .clock, .time, .text"
+      );
+
+      function showGame() {
+        menu.style.display = "none";
+        gameElements.forEach((el) => (el.style.display = "block"));
+      }
+
+      function showMenu() {
+        menu.style.display = "flex";
+        gameElements.forEach((el) => (el.style.display = "none"));
+      }
+
+      startBtn.addEventListener("click", () => {
+        showGame();
+      });
+
+      howtoBtn.addEventListener("click", () => {
+        howtoText.style.display =
+          howtoText.style.display === "none" ? "block" : "none";
+      });
+
+      exitBtn.addEventListener("click", () => {
+        window.close(); // Не працює у більшості браузерів — альтернативно:
+        alert("Для виходу просто закрийте вкладку.");
+      });
+
+      // Спочатку показуємо лише меню
+      showMenu();
+    </script>
+    <script>
+      const exitGameBtn = document.getElementById("exit-game-btn");
+
+      exitGameBtn.addEventListener("click", () => {
+        showMenu(); // Повертає до головного меню
+      });
+    </script>
   </body>
 </html>
