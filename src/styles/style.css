@@ -10,7 +10,7 @@ body {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.85);
-  background-image: url(../src/img/sniper.jpeg);
+  background-image: url(../../src/img/sniper.jpeg);
   background-size: cover;
   background-repeat: no-repeat;
   color: white;
@@ -67,10 +67,8 @@ body {
   margin: 20px auto;
   position: relative;
   border: 3px solid #000000;
-  background-image: url("https://i.imgur.com/wjzD7Yt.jpg"); /* фон Нью Остіна */
-  background-size: cover;
   cursor: crosshair;
-  background-image: url(../src/img/bg-new-austin.avif);
+  background-image: url(../..//src/img/bg-new-austin.avif);
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 15px;

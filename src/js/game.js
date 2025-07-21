@@ -76,13 +76,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (shotSound) shotSound.play();
   });
 
-  // ✅ ПРАВИЛЬНИЙ обробник кнопки "Start"
+  // ✅ Оновлений обробник кнопки "Start"
   startBtn.addEventListener("click", () => {
     clearTimeout(timerId); // запобігає дублюванню таймерів
     score = 0;
     timeLeft = 30;
     scoreDisplay.textContent = score;
     target.style.display = "block";
+    changeImage(); // <- Додано виклик зміни картинки одразу при старті
     moveTarget();
     updateTimer();
     showGame();
