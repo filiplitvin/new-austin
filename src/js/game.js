@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Масив зображень для зміни
   const images = [
-    "../src/img/bohhh.webp",
+    "../../src/img/bohhh.webp",
     "../src/img/arthur.webp",
     "../src/img/boh.webp",
     "../src/img/bill.png",
