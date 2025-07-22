@@ -15,13 +15,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Масив зображень для зміни
   const images = [
-    "../../src/img/bohhh.webp",
-    "../src/img/arthur.webp",
-    "../src/img/boh.webp",
+    "../src/img/bohhh.png",
+    "../src/img/arthur.png",
+    "../src/img/boh.png",
     "../src/img/bill.png",
     "../src/img/dutch.png",
     "../src/img/jm.png",
     "../src/img/rat.png",
+    "../src/img/javier.png",
   ];
 
   function showGame() {
