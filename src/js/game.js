@@ -23,6 +23,18 @@ document.addEventListener("DOMContentLoaded", () => {
     "../src/img/jm.png",
     "../src/img/rat.png",
     "../src/img/javier.png",
+    "../src/img/abbi.png",
+    "../src/img/cs.png",
+    "../src/img/hm.png",
+    "../src/img/lenny.png",
+    "../src/img/leopold.png",
+    "../src/img/mb.png",
+    "../src/img/person.png",
+    "../src/img/sean.png",
+    "../src/img/susan.png",
+    "../src/img/swanson.png",
+    "../src/img/tilly.png",
+    "../src/img/uncle.png",
   ];
 
   function showGame() {

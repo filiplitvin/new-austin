@@ -22,15 +22,16 @@ body {
 }
 
 .menu-title {
-  font-size: 48px;
+  font-size: 75px;
   font-family: "Dancing Script", cursive;
-  margin-bottom: 40px;
+  margin-bottom: 150px;
+  border-bottom: 3px solid white;
 }
 
 .menu-button {
   font-family: "Dancing Script", cursive;
-  padding: 15px 30px;
-  font-size: 20px;
+  padding: 15px 60px;
+  font-size: 40px;
   margin: 10px;
   cursor: pointer;
   background-color: black;
@@ -43,7 +44,13 @@ body {
 .menu-button:hover {
   background-color: #800000;
 }
-
+.menu-text {
+  position: absolute;
+  top: 93%;
+  left: 1%;
+  font-family: "Dancing Script", cursive;
+  font-size: 20px;
+}
 .box {
   display: flex;
   justify-content: center;
