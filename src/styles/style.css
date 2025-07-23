@@ -89,6 +89,14 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
 }
+#target2 {
+  position: absolute;
+  width: 100px;
+  height: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 .appear {
   opacity: 1;
   transform: scale(1.1);
