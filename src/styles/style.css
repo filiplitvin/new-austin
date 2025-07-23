@@ -101,7 +101,7 @@ body {
   position: absolute; /* Це обов'язково! */
   width: 100px;
   height: 150px;
-  background-image: url(../src/img/bohhh.png);
+  background-image: url(../..//src/img/bohhh.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
