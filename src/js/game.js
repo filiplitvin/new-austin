@@ -1,3 +1,280 @@
+// // document.addEventListener("DOMContentLoaded", () => {
+// //   const target = document.getElementById("target");
+// //   const target2 = document.createElement("div");
+// //   target2.id = "target2";
+// //   target2.style.position = "absolute";
+// //   target2.style.width = "100px";
+// //   target2.style.height = "150px";
+// //   target2.style.backgroundSize = "contain";
+// //   target2.style.backgroundRepeat = "no-repeat";
+// //   target2.style.cursor = "crosshair";
+// //   target.parentElement.appendChild(target2);
+
+// //   const scoreDisplay = document.getElementById("score");
+// //   const timerDisplay = document.getElementById("timer");
+// //   const startBtn = document.getElementById("start-btn");
+// //   const howtoBtn = document.getElementById("howto-btn");
+// //   const howtoText = document.getElementById("howto-text");
+// //   const gameOverScreen = document.getElementById("game-over-screen");
+// //   const finalScore = document.getElementById("final-score");
+// //   const playAgainBtn = document.getElementById("play-again-btn");
+// //   const exitToMenuBtn = document.getElementById("exit-to-menu-btn");
+
+// //   const gameElements = document.querySelectorAll(
+// //     ".box, #game-area, .score, .clock, .time, .text"
+// //   );
+// //   const menu = document.getElementById("main-menu");
+
+// //   let score = 0;
+// //   let timeLeft = 30;
+// //   let timerId;
+
+// //   const images = [
+// //     { url: "../src/img/bohhh.png", type: "enemy" },
+// //     { url: "../src/img/arthur.png", type: "dangerous" },
+// //     { url: "../src/img/bill.png", type: "enemy" },
+// //     { url: "../src/img/dutch.png", type: "dangerous" },
+// //     { url: "../src/img/jm.png", type: "dangerous" },
+// //     { url: "../src/img/rat.png", type: "dangerous" },
+// //     { url: "../src/img/javier.png", type: "enemy" },
+// //     { url: "../src/img/abbi.png", type: "enemy" },
+// //     { url: "../src/img/cs.png", type: "enemy" },
+// //     { url: "../src/img/hm.png", type: "dangerous" },
+// //     { url: "../src/img/lenny.png", type: "enemy" },
+// //     { url: "../src/img/leopold.png", type: "enemy" },
+// //     { url: "../src/img/mb.png", type: "civilian" },
+// //     { url: "../src/img/person.png", type: "civilian" },
+// //     { url: "../src/img/sean.png", type: "enemy" },
+// //     { url: "../src/img/swanson.png", type: "civilian" },
+// //     { url: "../src/img/tilly.png", type: "enemy" },
+// //     { url: "../src/img/uncle.png", type: "enemy" },
+// //     { url: "../src/img/susan.png", type: "civilian" },
+// //   ];
+
+// //   function createIndicator() {
+// //     const ind = document.createElement("div");
+// //     ind.style.position = "absolute";
+// //     ind.style.width = "20px";
+// //     ind.style.height = "20px";
+// //     ind.style.borderRadius = "50%";
+// //     ind.style.top = "-25px";
+// //     ind.style.left = "40px";
+// //     ind.style.pointerEvents = "none";
+// //     return ind;
+// //   }
+
+// //   const indicator1 = createIndicator();
+// //   const indicator2 = createIndicator();
+
+// //   target.parentElement.appendChild(indicator1);
+// //   target2.parentElement.appendChild(indicator2);
+
+// //   function setIndicator(indicator, type) {
+// //     if (type === "civilian") {
+// //       indicator.style.backgroundColor = "green";
+// //       indicator.style.border = "2px solid #00FF00";
+// //       indicator.style.display = "block";
+// //     } else if (type === "enemy") {
+// //       indicator.style.backgroundColor = "red";
+// //       indicator.style.border = "2px solid #FF0000";
+// //       indicator.style.display = "block";
+// //     } else if (type === "dangerous") {
+// //       indicator.style.backgroundColor = "black";
+// //       indicator.style.border = "2px solid #000000";
+// //       indicator.style.display = "block";
+// //     } else {
+// //       indicator.style.display = "none";
+// //     }
+// //   }
+
+// //   function moveTarget() {
+// //     const x1 = Math.floor(Math.random() * (1150 - 100));
+// //     const y1 = Math.floor(Math.random() * (375 - 150));
+// //     target.style.left = `${x1}px`;
+// //     target.style.top = `${y1}px`;
+
+// //     const x2 = Math.floor(Math.random() * (1150 - 100));
+// //     const y2 = Math.floor(Math.random() * (375 - 150));
+// //     target2.style.left = `${x2}px`;
+// //     target2.style.top = `${y2}px`;
+
+// //     target.classList.remove("appear");
+// //     target2.classList.remove("appear");
+
+// //     setTimeout(() => {
+// //       target.classList.add("appear");
+// //       target2.classList.add("appear");
+// //     }, 50);
+
+// //     indicator1.style.left = `${x1 + 40}px`;
+// //     indicator1.style.top = `${y1 - 25}px`;
+
+// //     indicator2.style.left = `${x2 + 40}px`;
+// //     indicator2.style.top = `${y2 - 25}px`;
+// //   }
+
+// //   let currentTarget, currentTarget2;
+
+// //   function changeImages() {
+// //     const index1 = Math.floor(Math.random() * images.length);
+// //     const index2 = Math.floor(Math.random() * images.length);
+
+// //     currentTarget = images[index1];
+// //     currentTarget2 = images[index2];
+
+// //     target.style.backgroundImage = `url(${currentTarget.url})`;
+// //     target2.style.backgroundImage = `url(${currentTarget2.url})`;
+
+// //     target.style.border = "none";
+// //     target2.style.border = "none";
+
+// //     setIndicator(indicator1, currentTarget.type);
+// //     setIndicator(indicator2, currentTarget2.type);
+// //   }
+
+// //   function updateTimer() {
+// //     const minutes = String(Math.floor(timeLeft / 60)).padStart(2, "0");
+// //     const seconds = String(timeLeft % 60).padStart(2, "0");
+// //     timerDisplay.textContent = `${minutes}:${seconds}`;
+
+// //     if (timeLeft === 0) {
+// //       clearTimeout(timerId);
+// //       target.style.display = "none";
+// //       target2.style.display = "none";
+// //       indicator1.style.display = "none";
+// //       indicator2.style.display = "none";
+// //       gameElements.forEach((el) => (el.style.display = "none"));
+
+// //       finalScore.textContent = score;
+// //       gameOverScreen.style.display = "flex";
+// //       return;
+// //     }
+
+// //     timeLeft--;
+// //     timerId = setTimeout(updateTimer, 1000);
+// //   }
+
+// //   target.addEventListener("click", () => {
+// //     if (currentTarget.type === "civilian") {
+// //       alert("Careful! That was a civilian!");
+// //     } else {
+// //       score++;
+// //       scoreDisplay.textContent = score;
+// //     }
+// //     moveTarget();
+// //     changeImages();
+// //   });
+
+// //   target2.addEventListener("click", () => {
+// //     if (currentTarget2.type === "civilian") {
+// //       alert("Careful! That was a civilian!");
+// //     } else {
+// //       score++;
+// //       scoreDisplay.textContent = score;
+// //     }
+// //     moveTarget();
+// //     changeImages();
+// //   });
+
+// //   startBtn.addEventListener("click", () => {
+// //     startGame();
+// //   });
+
+// //   playAgainBtn.addEventListener("click", () => {
+// //     gameOverScreen.style.display = "none";
+// //     startGame();
+// //   });
+
+// //   exitToMenuBtn.addEventListener("click", () => {
+// //     gameOverScreen.style.display = "none";
+// //     showMenu();
+// //   });
+
+// //   howtoBtn.addEventListener("click", () => {
+// //     howtoText.style.display =
+// //       howtoText.style.display === "none" ? "block" : "none";
+// //   });
+
+// //   function startGame() {
+// //     clearTimeout(timerId);
+// //     score = 0;
+// //     timeLeft = 30;
+// //     scoreDisplay.textContent = score;
+// //     target.style.display = "block";
+// //     target2.style.display = "block";
+// //     indicator1.style.display = "block";
+// //     indicator2.style.display = "block";
+
+// //     changeImages();
+// //     moveTarget();
+// //     updateTimer();
+// //     showGame();
+// //   }
+
+// //   function showGame() {
+// //     menu.style.display = "none";
+// //     gameElements.forEach((el) => (el.style.display = "block"));
+// //   }
+
+// //   function showMenu() {
+// //     menu.style.display = "flex";
+// //     gameElements.forEach((el) => (el.style.display = "none"));
+// //   }
+
+// //   showMenu();
+// // });
+// // document.addEventListener("DOMContentLoaded", () => {
+// //   const menu = document.getElementById("main-menu");
+// //   const gameElements = document.querySelectorAll(
+// //     ".box, #game-area, .score, .clock, .time, .text"
+// //   );
+
+// //   // Функція показати меню, приховати гру
+// //   function showMenu() {
+// //     menu.style.display = "flex";
+// //     gameElements.forEach((el) => (el.style.display = "none"));
+// //   }
+
+// //   // Функція показати гру, приховати меню
+// //   function showGame() {
+// //     menu.style.display = "none";
+// //     gameElements.forEach((el) => (el.style.display = "block"));
+// //   }
+
+// //   // Кнопки
+// //   const startGameBtn = document.getElementById("start-game-btn");
+// //   const exitGameBtn = document.getElementById("exit-game-btn");
+
+// //   // Старт гри
+// //   startGameBtn.addEventListener("click", () => {
+// //     showGame();
+// //     startGame();
+// //   });
+
+// //   // Вихід в меню
+// //   exitGameBtn.addEventListener("click", () => {
+// //     showMenu();
+// //     stopGame(); // Зупинити гру, якщо є така функція
+// //   });
+
+// //   // Ініціалізуємо головне меню при завантаженні
+// //   showMenu();
+
+// //   // --- Твій код гри тут ---
+// //   // Потрібно додати або адаптувати функції startGame() та stopGame()
+
+// //   function startGame() {
+// //     // Початок гри: запуск таймерів, скидання очок, тощо
+// //     console.log("Гра починається!");
+// //     // Тут твій код запуску гри
+// //   }
+
+// //   function stopGame() {
+// //     // Зупинка гри: зупинка таймерів, очищення стану
+// //     console.log("Гра зупинена");
+// //     // Тут твій код зупинки гри
+// //   }
+// // });
 // document.addEventListener("DOMContentLoaded", () => {
 //   const target = document.getElementById("target");
 //   const target2 = document.createElement("div");
@@ -13,15 +290,23 @@
 //   const scoreDisplay = document.getElementById("score");
 //   const timerDisplay = document.getElementById("timer");
 //   const startBtn = document.getElementById("start-btn");
+//   const howtoBtn = document.getElementById("howto-btn");
+//   const howtoText = document.getElementById("howto-text");
+//   const gameOverScreen = document.getElementById("game-over-screen");
+//   const finalScore = document.getElementById("final-score");
+//   const playAgainBtn = document.getElementById("play-again-btn");
+//   const exitToMenuBtn = document.getElementById("exit-to-menu-btn");
+//   const menu = document.getElementById("main-menu");
+
 //   const gameElements = document.querySelectorAll(
 //     ".box, #game-area, .score, .clock, .time, .text"
 //   );
-//   const menu = document.getElementById("main-menu");
 
 //   let score = 0;
 //   let timeLeft = 30;
 //   let timerId;
 
+//   // Масив зображень
 //   const images = [
 //     { url: "../src/img/bohhh.png", type: "enemy" },
 //     { url: "../src/img/arthur.png", type: "dangerous" },
@@ -35,36 +320,46 @@
 //     { url: "../src/img/hm.png", type: "dangerous" },
 //     { url: "../src/img/lenny.png", type: "enemy" },
 //     { url: "../src/img/leopold.png", type: "enemy" },
-//     { url: "../src/img/mb.png", type: "enemy" },
-//     { url: "../src/img/person.png", type: "enemy" },
+//     { url: "../src/img/mb.png", type: "civilian" },
+//     { url: "../src/img/person.png", type: "civilian" },
 //     { url: "../src/img/sean.png", type: "enemy" },
-//     { url: "../src/img/swanson.png", type: "enemy" },
+//     { url: "../src/img/swanson.png", type: "civilian" },
 //     { url: "../src/img/tilly.png", type: "enemy" },
 //     { url: "../src/img/uncle.png", type: "enemy" },
 //     { url: "../src/img/susan.png", type: "civilian" },
 //   ];
 
-//   // Створимо кружечки для індикаторів
-//   const indicator1 = document.createElement("div");
-//   indicator1.style.position = "absolute";
-//   indicator1.style.width = "20px"; // Зменшили розмір
-//   indicator1.style.height = "20px";
-//   indicator1.style.borderRadius = "50%";
-//   indicator1.style.top = "-25px"; // Трохи ближче до цілі
-//   indicator1.style.left = "40px"; // По центру відносно цілі
-//   indicator1.style.pointerEvents = "none";
-
-//   const indicator2 = indicator1.cloneNode();
+//   // Індикатори типу об'єкта
+//   function createIndicator() {
+//     const ind = document.createElement("div");
+//     ind.style.position = "absolute";
+//     ind.style.width = "20px";
+//     ind.style.height = "20px";
+//     ind.style.borderRadius = "50%";
+//     ind.style.top = "-25px";
+//     ind.style.left = "40px";
+//     ind.style.pointerEvents = "none";
+//     return ind;
+//   }
+//   const indicator1 = createIndicator();
+//   const indicator2 = createIndicator();
 //   target.parentElement.appendChild(indicator1);
 //   target2.parentElement.appendChild(indicator2);
 
 //   function setIndicator(indicator, type) {
-//     if (type === "dangerous" || type === "enemy") {
+//     if (type === "civilian") {
+//       indicator.style.backgroundColor = "green";
+//       indicator.style.border = "2px solid #00FF00";
+//       indicator.style.display = "block";
+//     } else if (type === "enemy") {
 //       indicator.style.backgroundColor = "red";
 //       indicator.style.border = "2px solid #FF0000";
 //       indicator.style.display = "block";
+//     } else if (type === "dangerous") {
+//       indicator.style.backgroundColor = "black";
+//       indicator.style.border = "2px solid #000000";
+//       indicator.style.display = "block";
 //     } else {
-//       // Для "civilian" або інших типів ховаємо індикатор
 //       indicator.style.display = "none";
 //     }
 //   }
@@ -126,7 +421,9 @@
 //       indicator1.style.display = "none";
 //       indicator2.style.display = "none";
 //       gameElements.forEach((el) => (el.style.display = "none"));
-//       showMenu();
+
+//       finalScore.textContent = score;
+//       gameOverScreen.style.display = "flex";
 //       return;
 //     }
 
@@ -136,7 +433,7 @@
 
 //   target.addEventListener("click", () => {
 //     if (currentTarget.type === "civilian") {
-//       alert("Обережно! Це мирний!");
+//       alert("Careful! That was a civilian!");
 //     } else {
 //       score++;
 //       scoreDisplay.textContent = score;
@@ -147,7 +444,7 @@
 
 //   target2.addEventListener("click", () => {
 //     if (currentTarget2.type === "civilian") {
-//       alert("Обережно! Це мирний!");
+//       alert("Careful! That was a civilian!");
 //     } else {
 //       score++;
 //       scoreDisplay.textContent = score;
@@ -156,7 +453,22 @@
 //     changeImages();
 //   });
 
-//   startBtn.addEventListener("click", () => {
+//   startBtn.addEventListener("click", startGame);
+//   playAgainBtn.addEventListener("click", () => {
+//     gameOverScreen.style.display = "none";
+//     startGame();
+//   });
+//   exitToMenuBtn.addEventListener("click", () => {
+//     gameOverScreen.style.display = "none";
+//     showMenu();
+//   });
+
+//   howtoBtn.addEventListener("click", () => {
+//     howtoText.style.display =
+//       howtoText.style.display === "none" ? "block" : "none";
+//   });
+
+//   function startGame() {
 //     clearTimeout(timerId);
 //     score = 0;
 //     timeLeft = 30;
@@ -170,7 +482,16 @@
 //     moveTarget();
 //     updateTimer();
 //     showGame();
-//   });
+//   }
+
+//   function stopGame() {
+//     clearTimeout(timerId);
+//     target.style.display = "none";
+//     target2.style.display = "none";
+//     indicator1.style.display = "none";
+//     indicator2.style.display = "none";
+//     gameElements.forEach((el) => (el.style.display = "none"));
+//   }
 
 //   function showGame() {
 //     menu.style.display = "none";
@@ -199,6 +520,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const scoreDisplay = document.getElementById("score");
   const timerDisplay = document.getElementById("timer");
   const startBtn = document.getElementById("start-btn");
+  const gameOverScreen = document.getElementById("game-over-screen");
+  const finalScore = document.getElementById("final-score");
+  const playAgainBtn = document.getElementById("play-again-btn");
+  const exitToMenuBtn = document.getElementById("exit-to-menu-btn");
+
   const gameElements = document.querySelectorAll(
     ".box, #game-area, .score, .clock, .time, .text"
   );
@@ -230,7 +556,6 @@ document.addEventListener("DOMContentLoaded", () => {
     { url: "../src/img/susan.png", type: "civilian" },
   ];
 
-  // Створимо кружечки для індикаторів
   function createIndicator() {
     const ind = document.createElement("div");
     ind.style.position = "absolute";
@@ -324,7 +649,9 @@ document.addEventListener("DOMContentLoaded", () => {
       indicator1.style.display = "none";
       indicator2.style.display = "none";
       gameElements.forEach((el) => (el.style.display = "none"));
-      showMenu();
+
+      finalScore.textContent = score;
+      gameOverScreen.style.display = "flex";
       return;
     }
 
@@ -334,7 +661,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   target.addEventListener("click", () => {
     if (currentTarget.type === "civilian") {
-      alert("Обережно! Це мирний!");
+      alert("Careful! That was a civilian!");
     } else {
       score++;
       scoreDisplay.textContent = score;
@@ -345,7 +672,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   target2.addEventListener("click", () => {
     if (currentTarget2.type === "civilian") {
-      alert("Обережно! Це мирний!");
+      alert("Careful! That was a civilian!");
     } else {
       score++;
       scoreDisplay.textContent = score;
@@ -355,6 +682,20 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   startBtn.addEventListener("click", () => {
+    startGame();
+  });
+
+  playAgainBtn.addEventListener("click", () => {
+    gameOverScreen.style.display = "none";
+    startGame();
+  });
+
+  exitToMenuBtn.addEventListener("click", () => {
+    gameOverScreen.style.display = "none";
+    showMenu();
+  });
+
+  function startGame() {
     clearTimeout(timerId);
     score = 0;
     timeLeft = 30;
@@ -368,7 +709,7 @@ document.addEventListener("DOMContentLoaded", () => {
     moveTarget();
     updateTimer();
     showGame();
-  });
+  }
 
   function showGame() {
     menu.style.display = "none";
