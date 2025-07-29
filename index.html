@@ -2,7 +2,7 @@
 <html lang="uk">
   <head>
     <meta charset="UTF-8" />
-    <title>New Austin: Невидимий Снайпер</title>
+    <title>Dart Maul Sadows of the dark power</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,8 +19,10 @@
   </head>
   <body>
     <div id="main-menu" class="menu">
-      <h2 class="menu-title">RED DEAD REDAMTION THE NEW AUSTIN SNIPER</h2>
+      <img src="./src/img/title.png" alt="title" />
       <button id="start-btn" class="menu-button">Start</button>
+      <a id="boss-btn" class="menu-button" href="./src/boss.html">BOSS</a>
+      <!-- Додано тут -->
 
       <p class="menu-text-policy">
         This is Alpha version. And directed by Filip Litvin, ChatGPT, Copilot
@@ -28,7 +30,6 @@
     </div>
 
     <div class="box">
-      <h1 class="title">RED DEAD REDAMTION THE NEW AUSTIN SNIPER</h1>
       <svg
         class="vector"
         version="1.1"
@@ -49,9 +50,7 @@
     </div>
     <p class="score">Point's: <span id="score">0</span></p>
     <p class="time">Time: <span id="timer">00:30</span> с</p>
-    <p class="policy">
-      Вороги це члени банди тому що це відбувається під час 1899 року
-    </p>
+
     <div class="creators">
       <img
         class="creators-photo"
@@ -62,7 +61,12 @@
     <div class="exit-button-box">
       <button id="exit-game-btn" class="exit-button">Exit to menu</button>
     </div>
-
+    <div id="game-over-screen" class="game-over-screen" style="display: none">
+      <h1 class="game-over-title">GAME OVER</h1>
+      <p class="final-score">Your Score: <span id="final-score">0</span></p>
+      <button id="play-again-btn" class="menu-button">Play Again</button>
+      <button id="exit-to-menu-btn" class="menu-button">Exit to Menu</button>
+    </div>
     <script src="./src/js/game.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -109,11 +113,5 @@
         showMenu(); // Повертає до головного меню
       });
     </script>
-    <div id="game-over-screen" class="game-over-screen" style="display: none">
-      <h1 class="game-over-title">GAME OVER</h1>
-      <p class="final-score">Your Score: <span id="final-score">0</span></p>
-      <button id="play-again-btn" class="menu-button">Play Again</button>
-      <button id="exit-to-menu-btn" class="menu-button">Exit to Menu</button>
-    </div>
   </body>
 </html>

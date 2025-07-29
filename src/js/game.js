@@ -1,17 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const target = document.getElementById("target");
-  const target2 = document.createElement("div");
-  target2.id = "target2";
-  Object.assign(target2.style, {
-    position: "absolute",
-    width: "100px",
-    height: "150px",
-    backgroundSize: "contain",
-    backgroundRepeat: "no-repeat",
-    cursor: "crosshair",
-  });
-  target.parentElement.appendChild(target2);
-
+  const target2 = document.getElementById("target2");
   const scoreDisplay = document.getElementById("score");
   const timerDisplay = document.getElementById("timer");
   const startBtn = document.getElementById("start-btn");
@@ -19,36 +8,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const finalScore = document.getElementById("final-score");
   const playAgainBtn = document.getElementById("play-again-btn");
   const exitToMenuBtn = document.getElementById("exit-to-menu-btn");
-  const gameElements = document.querySelectorAll(
-    ".box, #game-area, .score, .clock, .time, .text"
-  );
+  const exitGameBtn = document.getElementById("exit-game-btn");
   const menu = document.getElementById("main-menu");
+  const gameElements = document.querySelectorAll(
+    ".box, #game-area, .score, .time"
+  );
 
-  let score = 0;
-  let timeLeft = 30;
-  let timerId;
-  let currentTarget, currentTarget2;
+  let score = 0,
+    timeLeft = 30,
+    timerId,
+    currentTarget,
+    currentTarget2;
 
   const images = [
-    { url: "src/img/bohhh.png", type: "enemy" },
-    { url: "src/img/arthur.png", type: "dangerous" },
-    { url: "src/img/bill.png", type: "enemy" },
-    { url: "src/img/dutch.png", type: "dangerous" },
-    { url: "src/img/jm.png", type: "dangerous" },
-    { url: "src/img/rat.png", type: "dangerous" },
-    { url: "src/img/javier.png", type: "enemy" },
-    { url: "src/img/abbi.png", type: "enemy" },
-    { url: "src/img/cs.png", type: "enemy" },
-    { url: "src/img/hm.png", type: "dangerous" },
-    { url: "src/img/lenny.png", type: "enemy" },
-    { url: "src/img/leopold.png", type: "enemy" },
-    { url: "src/img/mb.png", type: "civilian" },
-    { url: "src/img/person.png", type: "civilian" },
-    { url: "src/img/sean.png", type: "enemy" },
-    { url: "src/img/swanson.png", type: "civilian" },
-    { url: "src/img/tilly.png", type: "enemy" },
-    { url: "src/img/uncle.png", type: "enemy" },
-    { url: "src/img/susan.png", type: "civilian" },
+    { url: "src/img/kam.png", type: "enemy" },
+    { url: "src/img/kgd.png", type: "dangerous" },
+    { url: "src/img/mw.png", type: "enemy" },
+    { url: "src/img/yoda.png", type: "dangerous" },
+    { url: "src/img/palpatin.png", type: "civilian" },
+    { url: "src/img/pa.png", type: "enemy" },
+    { url: "src/img/nut.png", type: "civilian" },
+    { url: "src/img/es.png", type: "enemy" },
+    { url: "src/img/run.png", type: "civilian" },
   ];
 
   function createIndicator() {
@@ -62,50 +43,44 @@ document.addEventListener("DOMContentLoaded", () => {
       left: "40px",
       pointerEvents: "none",
     });
+    document.body.appendChild(ind);
     return ind;
   }
-
   const indicator1 = createIndicator();
   const indicator2 = createIndicator();
-  target.parentElement.appendChild(indicator1);
-  target2.parentElement.appendChild(indicator2);
 
-  function setIndicator(indicator, type) {
-    switch (type) {
-      case "civilian":
-        indicator.style.backgroundColor = "green";
-        indicator.style.border = "2px solid #00FF00";
-        break;
-      case "enemy":
-        indicator.style.backgroundColor = "red";
-        indicator.style.border = "2px solid #FF0000";
-        break;
-      case "dangerous":
-        indicator.style.backgroundColor = "black";
-        indicator.style.border = "2px solid #000000";
-        break;
-      default:
-        indicator.style.display = "none";
-        return;
+  function setIndicator(ind, type) {
+    if (type === "civilian") {
+      ind.style.backgroundColor = "green";
+      ind.style.border = "2px solid #00FF00";
+    } else if (type === "enemy") {
+      ind.style.backgroundColor = "red";
+      ind.style.border = "2px solid #FF0000";
+    } else if (type === "dangerous") {
+      ind.style.backgroundColor = "black";
+      ind.style.border = "2px solid #000000";
+    } else {
+      ind.style.display = "none";
+      return;
     }
-    indicator.style.display = "block";
+    ind.style.display = "block";
   }
 
   function moveTarget() {
-    const x1 = Math.floor(Math.random() * (1150 - 100));
-    const y1 = Math.floor(Math.random() * (375 - 150));
-    const x2 = Math.floor(Math.random() * (1150 - 100));
-    const y2 = Math.floor(Math.random() * (375 - 150));
+    const x1 = Math.random() * 1050;
+    const y1 = Math.random() * 325;
+    const x2 = Math.random() * 1050;
+    const y2 = Math.random() * 325;
 
-    target.style.left = `${x1}px`;
-    target.style.top = `${y1}px`;
-    target2.style.left = `${x2}px`;
-    target2.style.top = `${y2}px`;
+    target.style.left = x1 + "px";
+    target.style.top = y1 + "px";
+    target2.style.left = x2 + "px";
+    target2.style.top = y2 + "px";
 
-    indicator1.style.left = `${x1 + 40}px`;
-    indicator1.style.top = `${y1 - 25}px`;
-    indicator2.style.left = `${x2 + 40}px`;
-    indicator2.style.top = `${y2 - 25}px`;
+    indicator1.style.left = x1 + 40 + "px";
+    indicator1.style.top = y1 - 25 + "px";
+    indicator2.style.left = x2 + 40 + "px";
+    indicator2.style.top = y2 - 25 + "px";
 
     target.classList.remove("appear");
     target2.classList.remove("appear");
@@ -116,62 +91,51 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function changeImages() {
-    currentTarget = images[Math.floor(Math.random() * images.length)];
-    currentTarget2 = images[Math.floor(Math.random() * images.length)];
+    let img1 = images[Math.floor(Math.random() * images.length)];
+    let img2;
+    do {
+      img2 = images[Math.floor(Math.random() * images.length)];
+    } while (img1.type === "civilian" && img2.type === "civilian");
 
-    target.style.backgroundImage = `url(${currentTarget.url})`;
-    target2.style.backgroundImage = `url(${currentTarget2.url})`;
+    currentTarget = img1;
+    currentTarget2 = img2;
 
-    setIndicator(indicator1, currentTarget.type);
-    setIndicator(indicator2, currentTarget2.type);
+    target.style.backgroundImage = `url(${img1.url})`;
+    target2.style.backgroundImage = `url(${img2.url})`;
+    setIndicator(indicator1, img1.type);
+    setIndicator(indicator2, img2.type);
   }
 
   function updateTimer() {
-    const minutes = String(Math.floor(timeLeft / 60)).padStart(2, "0");
-    const seconds = String(timeLeft % 60).padStart(2, "0");
-    timerDisplay.textContent = `${minutes}:${seconds}`;
-
-    if (timeLeft === 0) {
+    timerDisplay.textContent = `${String(Math.floor(timeLeft / 60)).padStart(
+      2,
+      "0"
+    )}:${String(timeLeft % 60).padStart(2, "0")}`;
+    if (timeLeft <= 0) {
       clearTimeout(timerId);
       endGame();
-      return;
+    } else {
+      timeLeft--;
+      timerId = setTimeout(updateTimer, 1000);
     }
-
-    timeLeft--;
-    timerId = setTimeout(updateTimer, 1000);
   }
 
-  function handleShot(targetType) {
-    if (targetType === "civilian") {
-      alert("Careful! That was a civilian!");
-    } else if (targetType === "dangerous") {
-      score += 2;
-    } else if (targetType === "enemy") {
-      score += 1;
-    }
+  function handleShot(type) {
+    if (type === "civilian") alert("Обережно! Мирний!");
+    else if (type === "dangerous") score += 2;
+    else score += 1;
     scoreDisplay.textContent = score;
     moveTarget();
     changeImages();
   }
 
-  target.addEventListener("click", () => {
-    handleShot(currentTarget.type);
-  });
-
-  target2.addEventListener("click", () => {
-    handleShot(currentTarget2.type);
-  });
+  target.addEventListener("click", () => handleShot(currentTarget.type));
+  target2.addEventListener("click", () => handleShot(currentTarget2.type));
 
   function startGame() {
-    clearTimeout(timerId);
     score = 0;
     timeLeft = 30;
     scoreDisplay.textContent = score;
-    target.style.display = "block";
-    target2.style.display = "block";
-    indicator1.style.display = "block";
-    indicator2.style.display = "block";
-
     changeImages();
     moveTarget();
     updateTimer();
@@ -183,8 +147,6 @@ document.addEventListener("DOMContentLoaded", () => {
     target2.style.display = "none";
     indicator1.style.display = "none";
     indicator2.style.display = "none";
-    gameElements.forEach((el) => (el.style.display = "none"));
-    finalScore.textContent = score;
     gameOverScreen.style.display = "flex";
   }
 
@@ -198,19 +160,33 @@ document.addEventListener("DOMContentLoaded", () => {
     gameElements.forEach((el) => (el.style.display = "none"));
   }
 
-  startBtn.addEventListener("click", () => {
-    startGame();
-  });
-
+  startBtn.addEventListener("click", startGame);
   playAgainBtn.addEventListener("click", () => {
     gameOverScreen.style.display = "none";
     startGame();
   });
-
   exitToMenuBtn.addEventListener("click", () => {
     gameOverScreen.style.display = "none";
     showMenu();
   });
+  exitGameBtn.addEventListener("click", showMenu);
 
   showMenu();
+
+  // --- Курсор-меч ---
+  const cursor = document.createElement("div");
+  Object.assign(cursor.style, {
+    position: "fixed",
+    width: "125px",
+    height: "125px",
+    background: "url('src/img/spada.png') no-repeat center / contain",
+    pointerEvents: "none",
+    zIndex: "9999",
+    transform: "translate(-50%, -50%)",
+  });
+  document.body.appendChild(cursor);
+  document.addEventListener("mousemove", (e) => {
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+  });
 });

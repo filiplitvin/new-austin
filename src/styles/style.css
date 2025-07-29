@@ -1,7 +1,8 @@
 body {
   font-family: "Times New Roman", Times, serif;
   text-align: center;
-  background-color: darkred;
+  background-color: darkblue;
+  cursor: none;
 }
 .menu {
   position: absolute;
@@ -10,7 +11,7 @@ body {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.85);
-  background-image: url(../../src/img/sniper.jpeg);
+  background-image: url(../../src/img/bg-menu.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   color: white;
@@ -36,14 +37,6 @@ body {
   z-index: 10;
   transition: opacity 0.5s ease;
 }
-
-.menu-title {
-  font-size: 55px;
-  font-family: "Luckiest Guy", cursive;
-  margin-bottom: 150px;
-  border-bottom: 3px solid white;
-}
-
 .menu-button {
   font-family: "Dancing Script", cursive;
   padding: 15px 60px;
@@ -74,10 +67,7 @@ body {
   flex-direction: row;
   gap: 20px;
 }
-.title {
-  font-family: "Luckiest Guy", cursive;
-  color: white;
-}
+
 .vector {
   position: absolute;
   right: 22%;
@@ -86,12 +76,11 @@ body {
 }
 #game-area {
   min-width: 1250px;
-  min-height: 475px;
+  min-height: 500px;
   margin: 20px auto;
   position: relative;
   border: 3px solid #000000;
-  cursor: crosshair;
-  background-image: url(../..//src/img/bg-new-austin.avif);
+  background-image: url(../..//src/img/bg.webp);
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 15px;
@@ -125,10 +114,7 @@ body {
   color: white;
   font-family: "Dancing Script", cursive;
 }
-.policy {
-  color: white;
-  margin-bottom: 10px;
-}
+
 .exit-button-box {
   display: flex;
   justify-content: center;
@@ -152,7 +138,7 @@ body {
 }
 
 .exit-button:hover {
-  background-color: darkred;
+  background-color: darkblue;
   color: white;
 }
 .creators {
@@ -214,4 +200,19 @@ body {
     transform: translateY(0);
     opacity: 1;
   }
+}
+.boss-button {
+  font-family: "Dancing Script", cursive;
+  padding: 15px 60px;
+  font-size: 40px;
+  margin: 10px;
+  cursor: pointer;
+  background-color: black;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+.boss-button:hover {
+  background-color: #800000;
 }
