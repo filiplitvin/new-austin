@@ -22,7 +22,7 @@ body {
 }
 .menu-text {
   position: absolute;
-  bottom: 40px; /* відступ від нижнього краю */
+  bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
   font-family: "Dancing Script", cursive;
