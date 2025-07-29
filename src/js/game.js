@@ -2,12 +2,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const target = document.getElementById("target");
   const target2 = document.createElement("div");
   target2.id = "target2";
-  target2.style.position = "absolute";
-  target2.style.width = "100px";
-  target2.style.height = "150px";
-  target2.style.backgroundSize = "contain";
-  target2.style.backgroundRepeat = "no-repeat";
-  target2.style.cursor = "crosshair";
+  Object.assign(target2.style, {
+    position: "absolute",
+    width: "100px",
+    height: "150px",
+    backgroundSize: "contain",
+    backgroundRepeat: "no-repeat",
+    cursor: "crosshair",
+  });
   target.parentElement.appendChild(target2);
 
   const scoreDisplay = document.getElementById("score");
@@ -17,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const finalScore = document.getElementById("final-score");
   const playAgainBtn = document.getElementById("play-again-btn");
   const exitToMenuBtn = document.getElementById("exit-to-menu-btn");
-
   const gameElements = document.querySelectorAll(
     ".box, #game-area, .score, .clock, .time, .text"
   );
@@ -26,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let score = 0;
   let timeLeft = 30;
   let timerId;
+  let currentTarget, currentTarget2;
 
   const images = [
     { url: "src/img/bohhh.png", type: "enemy" },
@@ -51,80 +53,74 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function createIndicator() {
     const ind = document.createElement("div");
-    ind.style.position = "absolute";
-    ind.style.width = "20px";
-    ind.style.height = "20px";
-    ind.style.borderRadius = "50%";
-    ind.style.top = "-25px";
-    ind.style.left = "40px";
-    ind.style.pointerEvents = "none";
+    Object.assign(ind.style, {
+      position: "absolute",
+      width: "20px",
+      height: "20px",
+      borderRadius: "50%",
+      top: "-25px",
+      left: "40px",
+      pointerEvents: "none",
+    });
     return ind;
   }
 
   const indicator1 = createIndicator();
   const indicator2 = createIndicator();
-
   target.parentElement.appendChild(indicator1);
   target2.parentElement.appendChild(indicator2);
 
   function setIndicator(indicator, type) {
-    if (type === "civilian") {
-      indicator.style.backgroundColor = "green";
-      indicator.style.border = "2px solid #00FF00";
-      indicator.style.display = "block";
-    } else if (type === "enemy") {
-      indicator.style.backgroundColor = "red";
-      indicator.style.border = "2px solid #FF0000";
-      indicator.style.display = "block";
-    } else if (type === "dangerous") {
-      indicator.style.backgroundColor = "black";
-      indicator.style.border = "2px solid #000000";
-      indicator.style.display = "block";
-    } else {
-      indicator.style.display = "none";
+    switch (type) {
+      case "civilian":
+        indicator.style.backgroundColor = "green";
+        indicator.style.border = "2px solid #00FF00";
+        break;
+      case "enemy":
+        indicator.style.backgroundColor = "red";
+        indicator.style.border = "2px solid #FF0000";
+        break;
+      case "dangerous":
+        indicator.style.backgroundColor = "black";
+        indicator.style.border = "2px solid #000000";
+        break;
+      default:
+        indicator.style.display = "none";
+        return;
     }
+    indicator.style.display = "block";
   }
 
   function moveTarget() {
     const x1 = Math.floor(Math.random() * (1150 - 100));
     const y1 = Math.floor(Math.random() * (375 - 150));
-    target.style.left = `${x1}px`;
-    target.style.top = `${y1}px`;
-
     const x2 = Math.floor(Math.random() * (1150 - 100));
     const y2 = Math.floor(Math.random() * (375 - 150));
+
+    target.style.left = `${x1}px`;
+    target.style.top = `${y1}px`;
     target2.style.left = `${x2}px`;
     target2.style.top = `${y2}px`;
 
+    indicator1.style.left = `${x1 + 40}px`;
+    indicator1.style.top = `${y1 - 25}px`;
+    indicator2.style.left = `${x2 + 40}px`;
+    indicator2.style.top = `${y2 - 25}px`;
+
     target.classList.remove("appear");
     target2.classList.remove("appear");
-
     setTimeout(() => {
       target.classList.add("appear");
       target2.classList.add("appear");
     }, 50);
-
-    indicator1.style.left = `${x1 + 40}px`;
-    indicator1.style.top = `${y1 - 25}px`;
-
-    indicator2.style.left = `${x2 + 40}px`;
-    indicator2.style.top = `${y2 - 25}px`;
   }
 
-  let currentTarget, currentTarget2;
-
   function changeImages() {
-    const index1 = Math.floor(Math.random() * images.length);
-    const index2 = Math.floor(Math.random() * images.length);
-
-    currentTarget = images[index1];
-    currentTarget2 = images[index2];
+    currentTarget = images[Math.floor(Math.random() * images.length)];
+    currentTarget2 = images[Math.floor(Math.random() * images.length)];
 
     target.style.backgroundImage = `url(${currentTarget.url})`;
     target2.style.backgroundImage = `url(${currentTarget2.url})`;
-
-    target.style.border = "none";
-    target2.style.border = "none";
 
     setIndicator(indicator1, currentTarget.type);
     setIndicator(indicator2, currentTarget2.type);
@@ -137,14 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (timeLeft === 0) {
       clearTimeout(timerId);
-      target.style.display = "none";
-      target2.style.display = "none";
-      indicator1.style.display = "none";
-      indicator2.style.display = "none";
-      gameElements.forEach((el) => (el.style.display = "none"));
-
-      finalScore.textContent = score;
-      gameOverScreen.style.display = "flex";
+      endGame();
       return;
     }
 
@@ -152,40 +141,25 @@ document.addEventListener("DOMContentLoaded", () => {
     timerId = setTimeout(updateTimer, 1000);
   }
 
-  target.addEventListener("click", () => {
-    if (currentTarget.type === "civilian") {
+  function handleShot(targetType) {
+    if (targetType === "civilian") {
       alert("Careful! That was a civilian!");
-    } else {
-      score++;
-      scoreDisplay.textContent = score;
+    } else if (targetType === "dangerous") {
+      score += 2;
+    } else if (targetType === "enemy") {
+      score += 1;
     }
+    scoreDisplay.textContent = score;
     moveTarget();
     changeImages();
+  }
+
+  target.addEventListener("click", () => {
+    handleShot(currentTarget.type);
   });
 
   target2.addEventListener("click", () => {
-    if (currentTarget2.type === "civilian") {
-      alert("Careful! That was a civilian!");
-    } else {
-      score++;
-      scoreDisplay.textContent = score;
-    }
-    moveTarget();
-    changeImages();
-  });
-
-  startBtn.addEventListener("click", () => {
-    startGame();
-  });
-
-  playAgainBtn.addEventListener("click", () => {
-    gameOverScreen.style.display = "none";
-    startGame();
-  });
-
-  exitToMenuBtn.addEventListener("click", () => {
-    gameOverScreen.style.display = "none";
-    showMenu();
+    handleShot(currentTarget2.type);
   });
 
   function startGame() {
@@ -204,6 +178,16 @@ document.addEventListener("DOMContentLoaded", () => {
     showGame();
   }
 
+  function endGame() {
+    target.style.display = "none";
+    target2.style.display = "none";
+    indicator1.style.display = "none";
+    indicator2.style.display = "none";
+    gameElements.forEach((el) => (el.style.display = "none"));
+    finalScore.textContent = score;
+    gameOverScreen.style.display = "flex";
+  }
+
   function showGame() {
     menu.style.display = "none";
     gameElements.forEach((el) => (el.style.display = "block"));
@@ -213,6 +197,20 @@ document.addEventListener("DOMContentLoaded", () => {
     menu.style.display = "flex";
     gameElements.forEach((el) => (el.style.display = "none"));
   }
+
+  startBtn.addEventListener("click", () => {
+    startGame();
+  });
+
+  playAgainBtn.addEventListener("click", () => {
+    gameOverScreen.style.display = "none";
+    startGame();
+  });
+
+  exitToMenuBtn.addEventListener("click", () => {
+    gameOverScreen.style.display = "none";
+    showMenu();
+  });
 
   showMenu();
 });
