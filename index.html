@@ -2,116 +2,55 @@
 <html lang="uk">
   <head>
     <meta charset="UTF-8" />
-    <title>Dart Maul Sadows of the dark power</title>
+    <title>Darth Muel Shadows of the dark power</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./src/styles/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap"
-      rel="stylesheet"
-    />
   </head>
+
   <body>
+    <!-- Головне меню -->
     <div id="main-menu" class="menu">
       <img src="./src/img/title.png" alt="title" />
-      <button id="start-btn" class="menu-button">Start</button>
-      <a id="boss-btn" class="menu-button" href="./src/boss.html">BOSS</a>
-      <!-- Додано тут -->
-
+      <button id="startBtn" class="menu-button">Start</button>
       <p class="menu-text-policy">
-        This is Alpha version. And directed by Filip Litvin, ChatGPT, Copilot
+        This is Alpha version. Directed by Filip Litvin, ChatGPT, Copilot.
       </p>
     </div>
 
-    <div class="box">
-      <svg
-        class="vector"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-        width="64px"
-        height="64px"
-        viewBox="0 0 1344 1024"
-      >
-        <g id="icomoon-ignore"></g>
-        <path
-          d="M1336.928 418.88c-7.2-6.048-17.984-5.088-24.064 2.176l-75.744 90.88c-1.632-0.512-3.296-1.024-5.12 0.064h-44.512l56.64-69.056c6.048-7.264 5.056-18.016-2.176-24.064s-18.016-5.088-24.064 2.176l-74.88 90.944h-50.528l56.64-69.056c6.048-7.264 5.056-18.016-2.176-24.064-7.2-6.048-17.984-5.088-24.064 2.176l-74.88 90.944h-24.064c-0.608-282.912-229.984-512-511.936-512-282.304 0-512 229.696-512 512s229.696 512 512 512c271.136 0 493.12-212.032 510.336-480h25.696l74.88 90.944c3.36 4.064 8.256 6.144 13.12 6.144 3.872 0 7.744-1.28 10.944-3.968 7.264-6.016 8.256-16.8 2.176-24.064l-56.672-69.056h50.528l74.88 90.944c3.36 4.064 8.256 6.144 13.12 6.144 3.872 0 7.744-1.28 10.944-3.968 7.264-6.016 8.256-16.8 2.176-24.064l-56.64-69.056h44.512c1.824 1.088 3.488 0.576 5.152 0.064l75.744 90.88c3.36 4.064 8.256 6.144 13.12 6.144 3.872 0 7.744-1.28 10.944-3.968 7.264-6.016 8.256-16.8 2.176-24.064l-70.88-85.056 70.88-85.056c6.048-7.264 5.056-18.048-2.208-24.064zM512 992c-264.672 0-480-215.328-480-480s215.328-480 480-480c264.32 0 479.328 214.72 479.936 480h-96c-0.576-212.32-172.544-384-383.936-384-211.744 0-384 172.256-384 384s172.256 384 384 384c200.576 0 365.472-154.624 382.336-352h96c-17.12 250.336-224.832 448-478.336 448zM767.936 512c-0.576-141.728-115.136-256-255.936-256-141.152 0-256 114.848-256 256s114.848 256 256 256c129.92 0 237.312-97.376 253.6-224h96.704c-16.736 179.712-167.392 320-350.304 320-194.080 0-352-157.92-352-352s157.92-352 352-352c193.728 0 351.36 157.312 351.936 352h-96zM639.904 512c-0.608-71.168-57.664-128-127.904-128-70.592 0-128 57.408-128 128s57.408 128 128 128c59.072 0 108.416-40.416 123.104-96h98.176c-16.096 108.928-109.056 192-221.28 192-123.488 0-224-100.512-224-224s100.512-224 224-224c123.136 0 223.36 99.904 223.936 224h-96.032zM528 544h73.76c-13.536 37.696-48.512 64-89.76 64-52.928 0-96-43.072-96-96s43.072-96 96-96c52.576 0 95.296 42.496 95.904 96h-79.904c-9.44-1.088-17.088 6.56-17.088 16s7.648 17.088 17.088 16z"
-        ></path>
-      </svg>
-    </div>
+    <!-- Ігрова зона -->
     <div id="game-area">
-      <div id="target"></div>
-      <div id="target2"></div>
+      <div id="target" class="target"></div>
+      <div id="target2" class="target"></div>
     </div>
+
+    <div class="box"></div>
+
     <p class="score">Point's: <span id="score">0</span></p>
     <p class="time">Time: <span id="timer">00:30</span> с</p>
+    <p class="policy"></p>
 
     <div class="creators">
-      <img
-        class="creators-photo"
-        src=".//.//src/img/creators.PNG"
-        alt="creators"
-      />
+      <img class="creators-photo" src="./src/img/creators.PNG" alt="creator" />
     </div>
+
     <div class="exit-button-box">
       <button id="exit-game-btn" class="exit-button">Exit to menu</button>
     </div>
+
+    <!-- Екран завершення гри -->
     <div id="game-over-screen" class="game-over-screen" style="display: none">
       <h1 class="game-over-title">GAME OVER</h1>
       <p class="final-score">Your Score: <span id="final-score">0</span></p>
-
+      <button id="play-again-btn" class="menu-button">Play Again</button>
       <button id="exit-to-menu-btn" class="menu-button">Exit to Menu</button>
     </div>
+
+    <!-- Підключення скриптів -->
     <script src="./src/js/game.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-      const menu = document.getElementById("main-menu");
-      const startBtn = document.getElementById("start-btn");
-      const howtoBtn = document.getElementById("howto-btn");
-      const exitBtn = document.getElementById("exit-btn");
-      const howtoText = document.getElementById("howto-text");
-      const gameElements = document.querySelectorAll(
-        ".box, #game-area, .score, .clock, .time, .text"
-      );
-
-      function showGame() {
-        menu.style.display = "none";
-        gameElements.forEach((el) => (el.style.display = "block"));
-      }
-
-      function showMenu() {
-        menu.style.display = "flex";
-        gameElements.forEach((el) => (el.style.display = "none"));
-      }
-
-      startBtn.addEventListener("click", () => {
-        showGame();
-      });
-
-      howtoBtn.addEventListener("click", () => {
-        howtoText.style.display =
-          howtoText.style.display === "none" ? "block" : "none";
-      });
-
-      exitBtn.addEventListener("click", () => {
-        window.close(); // Не працює у більшості браузерів — альтернативно:
-        alert("Для виходу просто закрийте вкладку.");
-      });
-
-      // Спочатку показуємо лише меню
-      showMenu();
-    </script>
-    <script>
-      const exitGameBtn = document.getElementById("exit-game-btn");
-
-      exitGameBtn.addEventListener("click", () => {
-        showMenu(); // Повертає до головного меню
-      });
-    </script>
   </body>
 </html>

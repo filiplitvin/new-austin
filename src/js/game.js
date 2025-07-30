@@ -1,207 +1,130 @@
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
-const menu = document.getElementById("menu");
-const startBtn = document.getElementById("startBtn");
-const bossBtn = document.getElementById("bossBtn");
-const winsCountElem = document.getElementById("winsCount");
+document.addEventListener("DOMContentLoaded", () => {
+  const target = document.getElementById("target");
+  const target2 = document.getElementById("target2");
+  const scoreDisplay = document.getElementById("score");
+  const timerDisplay = document.getElementById("timer");
+  const startBtn = document.getElementById("startBtn");
+  const gameOverScreen = document.getElementById("game-over-screen");
+  const finalScore = document.getElementById("final-score");
+  const exitToMenuBtn = document.getElementById("exit-to-menu-btn");
+  const exitGameBtn = document.getElementById("exit-game-btn");
+  const menu = document.getElementById("main-menu");
 
-let gameMode = "menu";
-let wins = 0;
+  const gameElements = document.querySelectorAll(
+    ".box, #game-area, .score, .time, .exit-button-box, .creators"
+  );
 
-let player, enemy;
+  let score = 0;
+  let timeLeft = 30;
+  let timerId;
+  let currentTarget, currentTarget2;
 
-// === Додаємо зображення героя та боса ===
-const heroImg = new Image();
-heroImg.src = "src/img/hero-p.png";
+  const images = [
+    { url: "src/img/mw.png", type: "enemy" },
+    { url: "src/img/obi-wan.png", type: "dangerous" },
+    { url: "src/img/nut.png", type: "civilian" },
+    { url: "src/img/kgd.png", type: "dangerous" },
+    { url: "src/img/run.png", type: "civilian" },
+    { url: "src/img/kam.png", type: "enemy" },
+    { url: "src/img/palpatin.png", type: "civilian" },
+    { url: "src/img/pa.png", type: "enemy" },
+    { url: "src/img/es.png", type: "enemy" },
+    { url: "src/img/yoda.png", type: "dangerous" },
+  ];
 
-const bossImg = new Image();
-bossImg.src = "src/img/obi-wan.png";
+  function showGame() {
+    menu.style.display = "none";
+    gameOverScreen.style.display = "none";
+    score = 0;
+    timeLeft = 30;
+    scoreDisplay.textContent = score;
+    timerDisplay.textContent = "00:30";
 
-function createPlayer() {
-  return {
-    x: 100,
-    y: 180,
-    width: 60,
-    height: 80,
-    speed: 3,
-    attack: false,
-    attackTimer: 0,
-    health: 10,
-  };
-}
+    gameElements.forEach((el) => (el.style.display = "block"));
 
-function createEnemy(isBoss = false) {
-  return {
-    x: 450,
-    y: 180,
-    width: 60,
-    height: 80,
-    color: isBoss ? "purple" : "orange",
-    speed: isBoss ? 1.5 : 2,
-    attack: false,
-    attackTimer: 0,
-    health: isBoss ? 25 : 10,
-    isBoss: isBoss,
-  };
-}
+    startTimer();
+    changeImages();
+    moveTargets();
+  }
 
-const keys = {};
+  function showMenu() {
+    clearTimeout(timerId);
+    gameOverScreen.style.display = "none";
+    menu.style.display = "flex";
+    gameElements.forEach((el) => (el.style.display = "none"));
+  }
 
-window.addEventListener("keydown", (e) => {
-  if (gameMode === "fight" || gameMode === "bossFight") {
-    keys[e.key.toLowerCase()] = true;
-    if (e.key.toLowerCase() === "f") {
-      player.attack = true;
-      player.attackTimer = 10;
+  function endGame() {
+    clearTimeout(timerId);
+    gameElements.forEach((el) => (el.style.display = "none"));
+    finalScore.textContent = score;
+    gameOverScreen.style.display = "flex";
+  }
+
+  function startTimer() {
+    updateTimer();
+  }
+
+  function updateTimer() {
+    const min = String(Math.floor(timeLeft / 60)).padStart(2, "0");
+    const sec = String(timeLeft % 60).padStart(2, "0");
+    timerDisplay.textContent = `${min}:${sec}`;
+
+    if (timeLeft <= 0) {
+      endGame();
+    } else {
+      timeLeft--;
+      timerId = setTimeout(updateTimer, 1000);
     }
   }
-});
-window.addEventListener("keyup", (e) => {
-  keys[e.key.toLowerCase()] = false;
-});
 
-let enemyDirection = 1;
-let enemyAttackCooldown = 0;
+  function moveTargets() {
+    const x1 = Math.random() * 1050;
+    const y1 = Math.random() * 325;
+    const x2 = Math.random() * 1050;
+    const y2 = Math.random() * 325;
 
-function resetFight(isBoss = false) {
-  player = createPlayer();
-  enemy = createEnemy(isBoss);
-  enemyDirection = 1;
-  enemyAttackCooldown = 0;
-}
+    target.style.left = `${x1}px`;
+    target.style.top = `${y1}px`;
+    target2.style.left = `${x2}px`;
+    target2.style.top = `${y2}px`;
+  }
 
-function updateFight() {
-  if (keys["w"] && player.y > 0) player.y -= player.speed;
-  if (keys["s"] && player.y + player.height < canvas.height)
-    player.y += player.speed;
-  if (keys["a"] && player.x > 0) player.x -= player.speed;
-  if (keys["d"] && player.x + player.width < canvas.width)
-    player.x += player.speed;
+  function changeImages() {
+    let img1 = images[Math.floor(Math.random() * images.length)];
+    let img2;
+    do {
+      img2 = images[Math.floor(Math.random() * images.length)];
+    } while (img1.type === "civilian" && img2.type === "civilian");
 
-  if (player.attackTimer > 0) player.attackTimer--;
-  else player.attack = false;
+    currentTarget = img1;
+    currentTarget2 = img2;
 
-  enemy.x += enemy.speed * enemyDirection;
-  if (enemy.x > 500) enemyDirection = -1;
-  if (enemy.x < 400) enemyDirection = 1;
+    target.style.backgroundImage = `url(${img1.url})`;
+    target2.style.backgroundImage = `url(${img2.url})`;
+  }
 
-  if (enemyAttackCooldown > 0) enemyAttackCooldown--;
-  else {
-    if (Math.random() < (enemy.isBoss ? 0.03 : 0.02)) {
-      enemy.attack = true;
-      enemy.attackTimer = 10;
-      enemyAttackCooldown = 80;
+  function handleShot(type) {
+    if (type === "civilian") {
+      alert("Обережно! Це мирний!");
+    } else if (type === "dangerous") {
+      score += 2;
+    } else {
+      score += 1;
     }
-  }
-  if (enemy.attackTimer > 0) enemy.attackTimer--;
-  else enemy.attack = false;
-
-  if (player.attack && rectIntersect(player, enemy)) {
-    enemy.health--;
-    enemy.color = "red";
-  } else {
-    enemy.color = enemy.isBoss ? "purple" : "orange";
+    scoreDisplay.textContent = score;
+    moveTargets();
+    changeImages();
   }
 
-  if (enemy.attack && rectIntersect(enemy, player)) {
-    player.health--;
-    player.color = "red";
-  } else {
-    player.color = "cyan";
-  }
+  target.addEventListener("click", () => handleShot(currentTarget.type));
+  target2.addEventListener("click", () => handleShot(currentTarget2.type));
 
-  if (enemy.health <= 0) {
-    wins++;
-    winsCountElem.textContent = wins;
-    alert(enemy.isBoss ? "Ти переміг Боса!" : "Ворог переможений!");
-    endFight();
-  }
-  if (player.health <= 0) {
-    alert("Ти програв!");
-    endFight();
-  }
-}
+  // Кнопки
+  startBtn.addEventListener("click", showGame);
+  exitGameBtn.addEventListener("click", showMenu);
+  exitToMenuBtn.addEventListener("click", showMenu);
 
-function rectIntersect(a, b) {
-  return !(
-    b.x > a.x + a.width ||
-    b.x + b.width < a.x ||
-    b.y > a.y + a.height ||
-    b.y + b.height < a.y
-  );
-}
-
-function drawFight() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Герой
-  ctx.drawImage(heroImg, player.x, player.y, player.width, player.height);
-
-  // Меч гравця
-  if (player.attack) {
-    ctx.fillStyle = "lime";
-    ctx.fillRect(player.x + player.width, player.y + player.height / 3, 20, 8);
-  }
-
-  // Ворог
-  if (enemy.isBoss) {
-    ctx.drawImage(bossImg, enemy.x, enemy.y, enemy.width, enemy.height);
-  } else {
-    ctx.fillStyle = enemy.color;
-    ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
-  }
-
-  // Меч ворога
-  if (enemy.attack) {
-    ctx.fillStyle = "yellow";
-    ctx.fillRect(enemy.x - 20, enemy.y + enemy.height / 3, 20, 8);
-  }
-
-  // Здоров'я
-  ctx.fillStyle = "white";
-  ctx.font = "16px sans-serif";
-  ctx.fillText(`Ти: ${player.health} HP`, 10, 20);
-  ctx.fillText(
-    `${enemy.isBoss ? "Обі-Ван" : "Ворог"}: ${enemy.health} HP`,
-    450,
-    20
-  );
-}
-
-function gameLoop() {
-  if (gameMode === "fight" || gameMode === "bossFight") {
-    updateFight();
-    drawFight();
-  }
-  requestAnimationFrame(gameLoop);
-}
-
-function startFight() {
-  gameMode = "fight";
-  resetFight(false);
-  canvas.style.display = "block";
-  menu.style.display = "none";
-}
-
-function startBossFight() {
-  gameMode = "bossFight";
-  resetFight(true);
-  canvas.style.display = "block";
-  menu.style.display = "none";
-}
-
-function endFight() {
-  gameMode = "menu";
-  canvas.style.display = "none";
-  menu.style.display = "block";
-
-  if (wins >= 5) {
-    bossBtn.style.display = "inline-block";
-  }
-}
-
-// Кнопки
-startBtn.addEventListener("click", startFight);
-bossBtn.addEventListener("click", startBossFight);
-
-gameLoop();
+  // Почати з меню
+  showMenu();
+});
