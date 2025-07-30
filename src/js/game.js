@@ -102,6 +102,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     target.style.backgroundImage = `url(${img1.url})`;
     target2.style.backgroundImage = `url(${img2.url})`;
+
+    // Видаляємо попередні класи
+    target.classList.remove("enemy", "dangerous", "civilian");
+    target2.classList.remove("enemy", "dangerous", "civilian");
+
+    // Додаємо класи за типом
+    target.classList.add(img1.type);
+    target2.classList.add(img2.type);
   }
 
   function handleShot(type) {
